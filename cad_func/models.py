@@ -17,7 +17,7 @@ class Funcionario(models.Model):
     nome = models.CharField(max_length=255)
     cargo = models.CharField(max_length=255)
     data_contratacao = models.DateField(default=timezone.now)
-    setor = models.ForeignKey(Setor, on_delete=models.CASCADE)
+    setor = models.ForeignKey(Setor, on_delete=models.DO_NOTHING, related_name='setor')
 
     def __str__(self):
         return self.nome

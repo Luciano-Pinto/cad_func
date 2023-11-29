@@ -12,30 +12,35 @@
 
 
                 {% if setores %}
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Data de Criação</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for setor in setores %}
-                            <tr>
-                                <td>{{ setor.id }}</td>
-                                <td>{{ setor.nome }}</td>
-                                <td>{{ setor.data_criacao }}</td>
-                                <td>
-                                    <a type="button" class="btn btn-warning"
-                                       href="{% url 'cad_func:setor_update' setor.id %}">Editar</a>
-                                    <a type="button" class="btn btn-danger"
-                                       href="{% url 'cad_func:setor_delete' setor.id %}">Apagar</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Data de Criação</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for setor in setores %}
+                                    <tr>
+                                        <td>{{ setor.id }}</td>
+                                        <td>{{ setor.nome }}</td>
+                                        <td>{{ setor.data_criacao }}</td>
+                                        <td>
+                                            <a type="button" class="btn btn-warning"
+                                               href="{% url 'cad_func:setor_update' setor.id %}">Editar</a>
+                                            <a type="button" class="btn btn-danger"
+                                               href="{% url 'cad_func:setor_delete' setor.id %}">Apagar</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 {% else %}
                     <h2 class="my-4">Nenhum registro encontrado!</h2>
                 {% endif %}

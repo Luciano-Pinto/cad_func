@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
-from .forms import SetorForm
-from .models import Setor
+from .forms import SetorForm, FuncionarioForm
+from .models import Setor, Funcionario
 
 
 def home(request):
@@ -9,7 +9,7 @@ def home(request):
 
 
 def setor_list(request):
-    setores = Setor.objects.all().values()
+    setores = Setor.objects.all()
     context = {
         'setores': setores,
     }
@@ -69,3 +69,68 @@ def setor_delete(request, id):
         pass
 
     return redirect('cad_func:setores')
+
+
+def funcionario_list(request):
+    funcionarios = Funcionario.objects.all()
+    context = {
+        'funcionarios': funcionarios,
+    }
+    return render(request, 'cad_func/funcionarios.html', context)
+
+
+def funcionario_create(request):
+    if request.method == 'POST':
+        form = FuncionarioForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('cad_func:funcionarios')
+            except Exception as e:
+                pass
+    else:
+        form = FuncionarioForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'cad_func/funcionario_create.html', context)
+
+
+def funcionario_update(request, id):
+    funcionario = Funcionario.objects.get(pk=id)
+    form = FuncionarioForm(
+        initial={
+            'nome': funcionario.nome,
+            'cargo': funcionario.cargo,
+            'data_contratacao': funcionario.data_contratacao,
+            'setor': funcionario.setor,
+        },
+    )
+
+    if request.method == 'POST':
+        form = FuncionarioForm(request.POST, instance=funcionario)
+
+        if form.is_valid():
+            try:
+                form.save()
+                model = form.instance
+                return redirect('cad_func:funcionarios')
+            except Exception as e:
+                pass
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'cad_func/funcionario_update.html', context)
+
+
+def funcionario_delete(request, id):
+    funcionario = Funcionario.objects.get(pk=id)
+
+    try:
+        funcionario.delete()
+    except Exception as e:
+        pass
+
+    return redirect('cad_func:funcionarios')

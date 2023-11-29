@@ -1,0 +1,16 @@
+{% extends 'cad_func/base.html' %}
+
+{% block title %}Alteração de dados de um Setor{% endblock %}
+
+{% block content %}
+    <div class="card-body">
+        <div class=""><h4>Alterar Dados do Funcionário</h4></div>
+        <hr class="my-4">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <a type="button" class="btn btn-danger" href="{% url 'cad_func:funcionarios'  %}">Cancelar</a>
+            <button type="submit" class="btn btn-success">Alterar</button>
+        </form>
+    </div>
+{% endblock %}
